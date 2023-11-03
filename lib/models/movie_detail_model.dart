@@ -15,26 +15,28 @@ class MovieDetailModel {
   num? voteAverage;
   int? voteCount;
 
-  MovieDetailModel(
-      {this.adult,
-      this.backdropPath,
-      this.genres,
-      this.id,
-      this.imdbId,
-      this.originalLanguage,
-      this.originalTitle,
-      this.overview,
-      this.posterPath,
-      this.releaseDate,
-      this.runtime,
-      this.status,
-      this.tagline,
-      this.voteAverage,
-      this.voteCount,
-      required genreIds,
-      required popularity,
-      required title,
-      required video});
+  MovieDetailModel({
+    this.adult,
+    this.backdropPath,
+    this.genres,
+    this.id,
+    this.imdbId,
+    this.originalLanguage,
+    this.originalTitle,
+    this.overview,
+    this.posterPath,
+    this.releaseDate,
+    this.runtime,
+    this.status,
+    this.tagline,
+    this.voteAverage,
+    this.voteCount,
+    // Added default values for missing fields
+    required genreIds,
+    required popularity,
+    required title,
+    required video,
+  });
 
   MovieDetailModel.fromJson(Map<String, dynamic> json) {
     adult = json['adult'];
@@ -45,18 +47,18 @@ class MovieDetailModel {
         genres!.add(Genres.fromJson(v));
       });
     }
-    id = json['id'].toString();
-    imdbId = json['imdb_id'];
-    originalLanguage = json['original_language'];
-    originalTitle = json['original_title'];
-    overview = json['overview'];
-    posterPath = json['poster_path'];
-    releaseDate = json['release_date'];
-    runtime = json['runtime'];
-    status = json['status'];
-    tagline = json['tagline'];
-    voteAverage = json['vote_average'];
-    voteCount = json['vote_count'];
+    id = json['id'].toString() ?? '';
+    imdbId = json['imdb_id'] ?? '';
+    originalLanguage = json['original_language'] ?? '';
+    originalTitle = json['original_title'] ?? '';
+    overview = json['overview'] ?? '';
+    posterPath = json['poster_path'] ?? '';
+    releaseDate = json['release_date'] ?? '';
+    runtime = json['runtime'] ?? 0;
+    status = json['status'] ?? '';
+    tagline = json['tagline'] ?? '';
+    voteAverage = json['vote_average'] ?? 0.0;
+    voteCount = json['vote_count'] ?? 0;
   }
 
   Map<String, dynamic> toJson() {
@@ -66,18 +68,18 @@ class MovieDetailModel {
     if (genres != null) {
       data['genres'] = genres!.map((v) => v.toJson()).toList();
     }
-    data['id'] = id;
-    data['imdb_id'] = imdbId;
-    data['original_language'] = originalLanguage;
-    data['original_title'] = originalTitle;
-    data['overview'] = overview;
-    data['poster_path'] = posterPath;
-    data['release_date'] = releaseDate;
-    data['runtime'] = runtime;
-    data['status'] = status;
-    data['tagline'] = tagline;
-    data['vote_average'] = voteAverage;
-    data['vote_count'] = voteCount;
+    data['id'] = id ?? '';
+    data['imdb_id'] = imdbId ?? '';
+    data['original_language'] = originalLanguage ?? '';
+    data['original_title'] = originalTitle ?? '';
+    data['overview'] = overview ?? '';
+    data['poster_path'] = posterPath ?? '';
+    data['release_date'] = releaseDate ?? '';
+    data['runtime'] = runtime ?? 0;
+    data['status'] = status ?? '';
+    data['tagline'] = tagline ?? '';
+    data['vote_average'] = voteAverage ?? 0.0;
+    data['vote_count'] = voteCount ?? 0;
     return data;
   }
 }
@@ -89,14 +91,14 @@ class Genres {
   Genres({this.id, this.name});
 
   Genres.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
+    id = json['id'] ?? 0;
+    name = json['name'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
+    data['id'] = id ?? 0;
+    data['name'] = name ?? '';
     return data;
   }
 }

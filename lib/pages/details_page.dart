@@ -11,7 +11,7 @@ import 'package:fl_app/widgets/title_text.dart';
 import 'package:fl_app/widgets/vertical_movie_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:iconly/iconly.dart';
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key});
@@ -26,6 +26,20 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(IconlyLight.arrow_left_2),
+          color: Colors.white,
+          onPressed: () {
+            Get.back();
+          },
+        ),
+        backgroundColor: Colors.transparent,
+        title: const Text(
+          "Details Screen",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: GetBuilder<MovieController>(builder: (controller) {
         return ListView(
@@ -78,7 +92,6 @@ class _DetailsPageState extends State<DetailsPage> {
                               ),
                               const Row(
                                 children: [
-                                  IconWidget(iconPath: MyIcons.share),
                                   SizedBox(width: 20),
                                   IconWidget(iconPath: MyIcons.favourite)
                                 ],
@@ -147,8 +160,9 @@ class _DetailsPageState extends State<DetailsPage> {
             Container(
               padding: const EdgeInsets.symmetric(vertical: 8),
               height: 210,
-              color: Theme.of(context).appBarTheme.backgroundColor,
+              color: Colours.scaffoldBgColor,
               child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemCount: movieController.movieCast.length <= 10
                       ? movieController.movieCast.length

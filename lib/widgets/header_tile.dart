@@ -12,7 +12,7 @@ class HeaderTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 0, left: 12, right: 12, bottom: 30),
+      padding: const EdgeInsets.only(top: 30, left: 12, right: 12, bottom: 30),
       child: Column(
         children: [
           Row(
