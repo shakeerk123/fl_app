@@ -90,10 +90,10 @@ class _DetailsPageState extends State<DetailsPage> {
                                       .toString(),
                                 ),
                               ),
-                              const Row(
+                               Row(
                                 children: [
                                   SizedBox(width: 20),
-                                  IconWidget(iconPath: MyIcons.favourite)
+                                  IconButton(icon:Icon(IconlyLight.heart) ,onPressed: (){},)
                                 ],
                               ),
                             ],

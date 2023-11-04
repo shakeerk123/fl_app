@@ -47,7 +47,7 @@ class MovieDetailModel {
         genres!.add(Genres.fromJson(v));
       });
     }
-    id = json['id'].toString() ?? '';
+    id = json['id'].toString();
     imdbId = json['imdb_id'] ?? '';
     originalLanguage = json['original_language'] ?? '';
     originalTitle = json['original_title'] ?? '';

@@ -20,7 +20,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
    var controller = Get.put(MovieController());
-  List pages = [ HomePage(), SearchPage(), const FavouritesPage(),  const ProfilePage()];
+  List pages = [ HomePage(), SearchPage(),  FavouritesPage(),  const ProfilePage()];
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class HorizontalMovieCard extends StatelessWidget {
@@ -31,13 +33,12 @@ class HorizontalMovieCard extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            // Add a ClipRRect widget here to create rounded corners
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: FadeInImage.memoryNetwork(
                 placeholder: kTransparentImage,
-                image: imgUrl, // Use the imgUrl passed as a parameter
-                fit: BoxFit.cover, // You can change the fit as needed
+                image: imgUrl,
+                fit: BoxFit.cover,
               ),
             ),
             Positioned(
@@ -45,13 +46,15 @@ class HorizontalMovieCard extends StatelessWidget {
               left: 15,
               child: SizedBox(
                 width: 200,
-                child: Text(
-                  movieTitle,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                child: Shimmer.fromColors(
+                  baseColor: Colors.white,
+                  highlightColor: Colors.grey,
+                  child: Text(
+                    movieTitle,
+                    style: GoogleFonts.poppins(
+                        fontSize: 25, fontWeight: FontWeight.bold),
+                    maxLines: 2,
                   ),
-                  maxLines: 2,
                 ),
               ),
             ),

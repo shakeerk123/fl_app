@@ -190,4 +190,24 @@ class ApiClient extends GetxController {
       rethrow;
     }
   }
+
+  Future<List<CastModel>> getMovieVideo(String movieId) async {
+    String uri =
+        '${ApiConstants.baseUrl}movie/$movieId/videos?${ApiConstants.apiKEY}';
+        
+
+    try {
+      http.Response response = await http.get(Uri.parse(uri));
+      final data = json.decode(response.body);
+      var result = data['video'];
+
+      List<CastModel> movieVideo = [];
+      for (var video in result) {
+        movieVideo.add(CastModel.fromJson(video));
+      }
+      return movieVideo;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

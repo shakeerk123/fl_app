@@ -8,14 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
  
 
-class FavouritesPage extends StatefulWidget {
-  const FavouritesPage({super.key});
+class FavouritesPage extends StatelessWidget {
+ FavouritesPage({super.key});
 
-  @override
-  State<FavouritesPage> createState() => _FavouritesPageState();
-}
-
-class _FavouritesPageState extends State<FavouritesPage> {
   MovieController movieController = Get.put(MovieController());
 
   @override
