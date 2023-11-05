@@ -4,14 +4,14 @@ import 'package:shimmer/shimmer.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class HorizontalMovieCard extends StatelessWidget {
-  final String imgUrl, movieTitle;
+  final String imgUrl,rating, movieTitle;
   final Function() onTap;
 
   const HorizontalMovieCard({
     Key? key,
     required this.imgUrl,
     required this.movieTitle,
-    required this.onTap,
+    required this.onTap, required this.rating,
   }) : super(key: key);
 
   @override
@@ -41,6 +41,9 @@ class HorizontalMovieCard extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
+            Positioned(top: 20,right: 20,
+              
+              child: Text('⭐  $rating')),
             Positioned(
               bottom: 15,
               left: 15,
@@ -52,7 +55,7 @@ class HorizontalMovieCard extends StatelessWidget {
                   child: Text(
                     movieTitle,
                     style: GoogleFonts.poppins(
-                        fontSize: 25, fontWeight: FontWeight.bold),
+                        fontSize: 18, ),
                     maxLines: 2,
                   ),
                 ),

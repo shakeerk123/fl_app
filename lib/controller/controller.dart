@@ -2,6 +2,7 @@ import 'package:fl_app/api/api_client.dart';
 import 'package:fl_app/models/cast_model.dart';
 import 'package:fl_app/models/movie_detail_model.dart';
 import 'package:fl_app/models/movie_model.dart';
+import 'package:fl_app/models/movie_trailer.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ class MovieController extends GetxController {
   List<MovieModel> similarMovies = <MovieModel>[].obs;
   List<MovieModel> searchedMovies = <MovieModel>[].obs;
   List<CastModel> movieCast = <CastModel>[].obs;
+  List<MovieTrailer> movieVideo = <MovieTrailer>[].obs;
 
   var movies = MovieDetailModel(
     adult: null,
@@ -44,6 +46,7 @@ class MovieController extends GetxController {
     getToprated();
     getTrending();
     getPopular();
+    
     super.onInit();
   }
 
@@ -106,6 +109,15 @@ void getTamil() async {
     var cast = await apiClient.getMovieCast(id);
     if (cast.isNotEmpty) {
       movieCast = cast;
+    }
+    update();
+  }
+
+
+   void getVideoList(String id) async {
+    var video = await apiClient.getMovieVideo(id);
+    if (video.isNotEmpty) {
+      movieVideo = video;
     }
     update();
   }

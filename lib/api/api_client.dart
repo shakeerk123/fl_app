@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fl_app/models/cast_model.dart';
 import 'package:fl_app/models/movie_detail_model.dart';
 import 'package:fl_app/models/movie_model.dart';
+import 'package:fl_app/models/movie_trailer.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -105,6 +106,7 @@ class ApiClient extends GetxController {
       for (var movie in result) {
         movies.add(MovieModel.fromJson(movie));
       }
+      print("data rec");
       return movies;
     } catch (e) {
       rethrow;
@@ -146,6 +148,7 @@ class ApiClient extends GetxController {
       MovieDetailModel details = MovieDetailModel.fromJson(data);
 
       return details;
+      
     } catch (e) {
       rethrow;
     }
@@ -191,7 +194,7 @@ class ApiClient extends GetxController {
     }
   }
 
-  Future<List<CastModel>> getMovieVideo(String movieId) async {
+  Future<List<MovieTrailer>> getMovieVideo(String movieId) async {
     String uri =
         '${ApiConstants.baseUrl}movie/$movieId/videos?${ApiConstants.apiKEY}';
         
@@ -201,10 +204,11 @@ class ApiClient extends GetxController {
       final data = json.decode(response.body);
       var result = data['video'];
 
-      List<CastModel> movieVideo = [];
+      List<MovieTrailer> movieVideo = [];
       for (var video in result) {
-        movieVideo.add(CastModel.fromJson(video));
+        movieVideo.add(MovieTrailer.fromJson(video));
       }
+      print("data rec");
       return movieVideo;
     } catch (e) {
       rethrow;

@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:fl_app/api/api_constants.dart';
 import 'package:fl_app/controller/controller.dart';
 import 'package:fl_app/widgets/circular_indicator.dart';

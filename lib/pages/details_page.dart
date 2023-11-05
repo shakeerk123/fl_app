@@ -218,10 +218,11 @@ class _DetailsPageState extends State<DetailsPage> {
                       })
                   : const CircleIndicator(),
             ),
+            
           ],
         );
       }),
-      bottomNavigationBar: const BottomBarButton(),
+      
     );
   }
 }
