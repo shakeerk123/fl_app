@@ -44,23 +44,7 @@ class HorizontalMovieCard extends StatelessWidget {
             Positioned(top: 20,right: 20,
               
               child: Text('⭐  $rating')),
-            Positioned(
-              bottom: 15,
-              left: 15,
-              child: SizedBox(
-                width: 200,
-                child: Shimmer.fromColors(
-                  baseColor: Colors.white,
-                  highlightColor: Colors.grey,
-                  child: Text(
-                    movieTitle,
-                    style: GoogleFonts.poppins(
-                        fontSize: 18, ),
-                    maxLines: 2,
-                  ),
-                ),
-              ),
-            ),
+           
           ],
         ),
       ),
