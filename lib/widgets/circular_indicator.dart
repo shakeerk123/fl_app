@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 class CircleIndicator extends StatelessWidget {
   final double width, height;
-  const CircleIndicator({super.key, this.width = 180.0, this.height = 270.0});
+  const CircleIndicator({super.key, this.width =40.0, this.height = 40.0});
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height,
-      width: width,
+    return const SizedBox(
+      height: 40,
+      width: 40,
       child: Center(
-        child: CircularProgressIndicator(
-          color: Theme.of(context).primaryTextTheme.bodyLarge?.color,
-        ),
+        child:LoadingIndicator(indicatorType: Indicator.cubeTransition,colors: [Colors.blue,Colors.white],)
       ),
     );
   }

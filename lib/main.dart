@@ -1,9 +1,9 @@
-import 'package:fl_app/pages/bottombar/main_page.dart';
-import 'package:fl_app/pages/details_page.dart';
-import 'package:fl_app/pages/home_page.dart';
-import 'package:fl_app/pages/login_page.dart';
-import 'package:fl_app/pages/splash/splash_screen.dart';
-import 'package:fl_app/themes/themes.dart';
+import 'package:fl_app/views/bottombar/main_page.dart';
+import 'package:fl_app/views/details_page.dart';
+import 'package:fl_app/views/home_page.dart';
+import 'package:fl_app/views/login_page.dart';
+import 'package:fl_app/views/splash/splash_screen.dart';
+import 'package:fl_app/utils/themes/themes.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
        GetPage(name: '/login', page: () => const LoginPage()),
        GetPage(name: '/main', page: () => const MainPage()),
        GetPage(name: '/home', page: () =>  HomePage()),
-       GetPage(name: '/deatils', page: () => const DetailsPage()),
+       GetPage(name: '/deatils', page: () =>  DetailsPage()),
       ],
     );
   }

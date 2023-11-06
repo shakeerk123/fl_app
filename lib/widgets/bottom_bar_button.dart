@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:flutter/material.dart';
 
-import 'package:fl_app/constants/constants.dart';
+import 'package:fl_app/utils/constants/constants.dart';
 
 class BottomBarButton extends StatelessWidget {
   void Function()? onTap;

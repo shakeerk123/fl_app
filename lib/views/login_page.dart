@@ -1,4 +1,4 @@
-import 'package:fl_app/constants/constants.dart';
+import 'package:fl_app/utils/constants/constants.dart';
 import 'package:fl_app/widgets/icon_widget.dart';
 import 'package:fl_app/widgets/text1.dart';
 import 'package:fl_app/widgets/text2.dart';

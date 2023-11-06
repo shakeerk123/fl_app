@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class VerticalMovieCard extends StatelessWidget {
+class ContainerCard extends StatelessWidget {
   final String imgUrl;
   final Function() onTap;
-  final double width;
+ 
 
-  VerticalMovieCard({
+  ContainerCard({
     Key? key,
     required this.imgUrl,
     required this.onTap,
-    this.width = 180,
+    
   }) : super(key: key);
 
   @override
@@ -18,7 +18,7 @@ class VerticalMovieCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: width,
+        width: MediaQuery.of(context).size.width,
         margin: const EdgeInsets.only(left: 12),
         child: Container(
           decoration: BoxDecoration(

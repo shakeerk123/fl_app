@@ -1,7 +1,8 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:fl_app/api/api_constants.dart';
-import 'package:fl_app/constants/constants.dart';
+import 'package:fl_app/utils/constants/constants.dart';
 import 'package:fl_app/controller/controller.dart';
-import 'package:fl_app/widgets/bottom_bar_button.dart';
 import 'package:fl_app/widgets/cast_card.dart';
 import 'package:fl_app/widgets/circular_indicator.dart';
 import 'package:fl_app/widgets/icon_widget.dart';
@@ -13,15 +14,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 
-class DetailsPage extends StatefulWidget {
-  const DetailsPage({super.key});
+class DetailsPage extends StatelessWidget {
+  DetailsPage({super.key});
 
-  @override
-  State<DetailsPage> createState() => _DetailsPageState();
-}
-
-class _DetailsPageState extends State<DetailsPage> {
   MovieController movieController = Get.put(MovieController());
+  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -90,10 +87,17 @@ class _DetailsPageState extends State<DetailsPage> {
                                       .toString(),
                                 ),
                               ),
-                               Row(
+                              Row(
                                 children: [
                                   SizedBox(width: 20),
-                                  IconButton(icon:Icon(IconlyLight.heart) ,onPressed: (){},)
+                                  IconButton(
+                                    icon: isFavorite
+                                        ? Icon(Icons.favorite)
+                                        : Icon(Icons.favorite_border),
+                                    onPressed: () {
+                                      // Toggle the favorite status
+                                    },
+                                  )
                                 ],
                               ),
                             ],
@@ -200,29 +204,25 @@ class _DetailsPageState extends State<DetailsPage> {
                               movieController.similarMovies[index].posterPath
                                   .toString(),
                           onTap: () {
-                            setState(() {
-                              movieController.getDetail(movieController
-                                  .similarMovies[index].id
-                                  .toString());
-                              movieController.getCastList(movieController
-                                  .similarMovies[index].id
-                                  .toString());
-                              movieController.getSimilar(movieController
-                                  .similarMovies[index].id
-                                  .toString());
-                              Get.toNamed('/deatils');
-                            });
+                            movieController.getDetail(movieController
+                                .similarMovies[index].id
+                                .toString());
+                            movieController.getCastList(movieController
+                                .similarMovies[index].id
+                                .toString());
+                            movieController.getSimilar(movieController
+                                .similarMovies[index].id
+                                .toString());
+                            Get.toNamed('/deatils');
                           },
                           width: 95,
                         );
                       })
                   : const CircleIndicator(),
             ),
-            
           ],
         );
       }),
-      
     );
   }
 }

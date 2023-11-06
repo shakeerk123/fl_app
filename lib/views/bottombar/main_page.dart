@@ -1,10 +1,10 @@
 
-import 'package:fl_app/constants/constants.dart';
+import 'package:fl_app/utils/constants/constants.dart';
 import 'package:fl_app/controller/controller.dart';
-import 'package:fl_app/pages/favourite_page.dart';
-import 'package:fl_app/pages/home_page.dart';
-import 'package:fl_app/pages/profile_page.dart';
-import 'package:fl_app/pages/search_page.dart';
+import 'package:fl_app/views/favourite_page.dart';
+import 'package:fl_app/views/home_page.dart';
+import 'package:fl_app/views/profile_page.dart';
+import 'package:fl_app/views/search_page.dart';
 import 'package:flutter/material.dart';
 
 
