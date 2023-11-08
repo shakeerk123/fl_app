@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                 : const CircleIndicator(height: 201, width: double.maxFinite),
             MovieListWidget(
                 title: "Trending Now",
-                movies: movieController.trendingMovies,
+                movies:movieController.trendingMovies,
                 movieController: movieController),
             ContainerWidget(
                 title: "Blockbusters",

@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+import 'dart:ui';
 
 import 'package:fl_app/api/api_constants.dart';
 import 'package:fl_app/utils/constants/constants.dart';
@@ -6,9 +6,11 @@ import 'package:fl_app/controller/controller.dart';
 import 'package:fl_app/widgets/cast_card.dart';
 import 'package:fl_app/widgets/circular_indicator.dart';
 import 'package:fl_app/widgets/icon_widget.dart';
+
 import 'package:fl_app/widgets/text1.dart';
 import 'package:fl_app/widgets/text2.dart';
 import 'package:fl_app/widgets/title_text.dart';
+
 import 'package:fl_app/widgets/vertical_movie_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +20,6 @@ class DetailsPage extends StatelessWidget {
   DetailsPage({super.key});
 
   MovieController movieController = Get.put(MovieController());
-  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,188 +38,236 @@ class DetailsPage extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
       body: GetBuilder<MovieController>(builder: (controller) {
-        return ListView(
+        return Stack(
           children: [
+            // Background Image
             Container(
-              height: 600,
-              width: double.maxFinite,
+              height: double.infinity,
+              width: double.infinity,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
                 image: DecorationImage(
                   image: NetworkImage(
                     ApiConstants.baseImgUrl +
                         movieController.movies.value.posterPath.toString(),
                   ),
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
               ),
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      Theme.of(context).colorScheme.primary,
-                      Theme.of(context).colorScheme.secondary,
-                      Theme.of(context).colorScheme.tertiary,
-                    ],
-                  ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                child: Container(
+                  color:
+                      Colors.black.withOpacity(0.5), // Adjust opacity as needed
                 ),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      bottom: 30,
-                      left: 12,
-                      right: 12,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              ),
+            ),
+            ListView(
+              children: [
+                Container(
+                  height: 600,
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.background,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        ApiConstants.baseImgUrl +
+                            movieController.movies.value.posterPath.toString(),
+                      ),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [
+                          Theme.of(context).colorScheme.primary,
+                          Theme.of(context).colorScheme.secondary,
+                          Theme.of(context).colorScheme.tertiary,
+                        ],
+                      ),
+                    ),
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          bottom: 30,
+                          left: 12,
+                          right: 12,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                width: 270,
-                                child: TitleText(
-                                  title: movieController
-                                      .movies.value.originalTitle
-                                      .toString(),
-                                ),
-                              ),
                               Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  SizedBox(width: 20),
-                                  IconButton(
-                                    icon: isFavorite
-                                        ? Icon(Icons.favorite)
-                                        : Icon(Icons.favorite_border),
-                                    onPressed: () {
-                                      // Toggle the favorite status
-                                    },
-                                  )
+                                  SizedBox(
+                                    width: 270,
+                                    child: TitleText(
+                                      title: movieController
+                                          .movies.value.originalTitle
+                                          .toString(),
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(width: 20),
+                                      IconButton(
+                                        iconSize: 35,
+                                        icon: Obx(
+                                          () => Icon(
+                                            movieController.isFavorite(
+                                                    movieController
+                                                        .movies.value.id
+                                                        .toString())
+                                                ? Icons.favorite
+                                                : Icons.favorite_border,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          if (movieController.isFavorite(
+                                              movieController.movies.value.id
+                                                  .toString())) {
+                                            movieController.removeFromFavorites(
+                                                movieController.movies.value.id
+                                                    .toString());
+                                          } else {
+                                            movieController.addToFavorites(
+                                                movieController.movies.value.id
+                                                    .toString());
+                                          }
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(6),
+                                    decoration: BoxDecoration(
+                                        color: MyColors.kAccentColor,
+                                        borderRadius: BorderRadius.circular(5)),
+                                    child: Center(
+                                      child: Text(
+                                        'IMDB  ${movieController.movies.value.voteAverage?.toStringAsFixed(1)}',
+                                        style: const TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 18),
+                                  const IconWidget(
+                                      iconPath: MyIcons.time, iconSize: 20),
+                                  Text2(
+                                    text:
+                                        ' ${movieController.movies.value.runtime.toString()} min',
+                                    fontSize: 16,
+                                  ),
+                                  const SizedBox(width: 18),
+                                  const IconWidget(
+                                      iconPath: MyIcons.calendar, iconSize: 20),
+                                  Text2(
+                                    text:
+                                        ' ${movieController.movies.value.releaseDate.toString()}',
+                                    fontSize: 16,
+                                  ),
                                 ],
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(6),
-                                decoration: BoxDecoration(
-                                    color: MyColors.kAccentColor,
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Center(
-                                  child: Text(
-                                    'IMDB  ${movieController.movies.value.voteAverage?.toStringAsFixed(1)}',
-                                    style: const TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 18),
-                              const IconWidget(
-                                  iconPath: MyIcons.time, iconSize: 20),
-                              Text2(
-                                text:
-                                    ' ${movieController.movies.value.runtime.toString()} min',
-                                fontSize: 16,
-                              ),
-                              const SizedBox(width: 18),
-                              const IconWidget(
-                                  iconPath: MyIcons.calendar, iconSize: 20),
-                              Text2(
-                                text:
-                                    ' ${movieController.movies.value.releaseDate.toString()}',
-                                fontSize: 16,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 12.0, bottom: 8),
-              child: Text1(text: 'Overview'),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 12.0, right: 12, bottom: 20),
-              child: Text2(
-                text: movieController.movies.value.overview.toString(),
-                maxLines: 5,
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 12.0, bottom: 8),
-              child: Text1(text: 'Cast'),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              height: 210,
-              color: Colours.scaffoldBgColor,
-              child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: movieController.movieCast.length <= 10
-                      ? movieController.movieCast.length
-                      : 10,
-                  itemBuilder: (context, index) {
-                    return movieController.movieCast.isNotEmpty
-                        ? CastCard(
-                            imgUrl: ApiConstants.baseImgUrl +
-                                movieController.movieCast[index].profilePath
-                                    .toString(),
-                            castName: movieController.movieCast[index].name
-                                .toString(),
-                            character: movieController
-                                .movieCast[index].character
-                                .toString(),
-                          )
-                        : const CircleIndicator();
-                  }),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 12.0, bottom: 8, top: 20),
-              child: Text1(text: 'Similar Movies'),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              height: 180,
-              color: Theme.of(context).appBarTheme.backgroundColor,
-              child: movieController.similarMovies.isNotEmpty
-                  ? ListView.builder(
-                      itemCount: movieController.similarMovies.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return VerticalMovieCard(
-                          imgUrl: ApiConstants.baseImgUrl +
-                              movieController.similarMovies[index].posterPath
+                const Padding(
+                  padding: EdgeInsets.only(left: 12.0, bottom: 8),
+                  child: Text1(text: 'Overview'),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 12.0, right: 12, bottom: 20),
+                  child: Text2(
+                    text: movieController.movies.value.overview.toString(),
+                    maxLines: 5,
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 12.0, bottom: 8),
+                  child: Text1(text: 'Cast'),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  height: 210,
+                  color: Colors.transparent,
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: movieController.movieCast.length <= 10
+                        ? movieController.movieCast.length
+                        : 10,
+                    itemBuilder: (context, index) {
+                      return movieController.movieCast.isNotEmpty
+                          ? CastCard(
+                              imgUrl: ApiConstants.baseImgUrl +
+                                  movieController.movieCast[index].profilePath
+                                      .toString(),
+                              castName: movieController.movieCast[index].name
                                   .toString(),
-                          onTap: () {
-                            movieController.getDetail(movieController
-                                .similarMovies[index].id
-                                .toString());
-                            movieController.getCastList(movieController
-                                .similarMovies[index].id
-                                .toString());
-                            movieController.getSimilar(movieController
-                                .similarMovies[index].id
-                                .toString());
-                            Get.toNamed('/deatils');
+                              character: movieController
+                                  .movieCast[index].character
+                                  .toString(),
+                            )
+                          : const CircleIndicator();
+                    },
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 12.0, bottom: 8, top: 20),
+                  child: Text1(text: 'Similar Movies'),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  height: 180,
+                  color: Colors.transparent,
+                  child: movieController.similarMovies.isNotEmpty
+                      ? ListView.builder(
+                          itemCount: movieController.similarMovies.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return VerticalMovieCard(
+                              imgUrl: ApiConstants.baseImgUrl +
+                                  movieController
+                                      .similarMovies[index].posterPath
+                                      .toString(),
+                              onTap: () {
+                                movieController.getDetail(movieController
+                                    .similarMovies[index].id
+                                    .toString());
+                                movieController.getCastList(movieController
+                                    .similarMovies[index].id
+                                    .toString());
+                                movieController.getSimilar(movieController
+                                    .similarMovies[index].id
+                                    .toString());
+                                Get.toNamed('/deatils');
+                              },
+                              width: 95,
+                            );
                           },
-                          width: 95,
-                        );
-                      })
-                  : const CircleIndicator(),
+                        )
+                      : const CircleIndicator(),
+                ),
+              ],
             ),
           ],
         );

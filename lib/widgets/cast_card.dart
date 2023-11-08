@@ -13,7 +13,7 @@ class CastCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Container(color: Colors.transparent,
       padding: const EdgeInsets.only(left: 12),
       width: 95,
       child: Column(

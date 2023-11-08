@@ -1,6 +1,7 @@
 
 import 'package:fl_app/utils/constants/constants.dart';
 import 'package:fl_app/controller/controller.dart';
+import 'package:fl_app/views/fav_screen.dart';
 import 'package:fl_app/views/favourite_page.dart';
 import 'package:fl_app/views/home_page.dart';
 import 'package:fl_app/views/profile_page.dart';
@@ -20,7 +21,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
    var controller = Get.put(MovieController());
-  List pages = [ HomePage(), SearchPage(),  FavouritesPage(),  const ProfilePage()];
+  List pages = [ HomePage(), SearchPage(),  FavoriteMoviesScreen(),  const ProfilePage()];
 
   @override
   Widget build(BuildContext context) {
